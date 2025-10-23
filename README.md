@@ -46,39 +46,65 @@ Résultat : échec
 <img width="1535" height="956" alt="image" src="https://github.com/user-attachments/assets/d10b8549-20ab-4235-890d-04dc8f13fe6d" />
 
 2. Commande Bootrec
-Les comandes BootRec possibles sont les suivantes :
-<img width="1491" height="1311" alt="image" src="https://github.com/user-attachments/assets/e72577f6-02ef-45c7-b42f-a387fb431a4c" />
-
-En l'espèce, l'erreur étant de type "BootMGR is missing", je tente la commande ````bootrec \fixboot````
 
 <img width="1486" height="937" alt="image" src="https://github.com/user-attachments/assets/63e38742-634b-4846-b66d-bea4e6f09b52" />
 
-<img width="1480" height="781" alt="image" src="https://github.com/user-attachments/assets/032f099b-ae34-4a8a-8a27-c338591c6b95" />
+Les commandes BootRec possibles sont les suivantes :
+<img width="1491" height="1311" alt="image" src="https://github.com/user-attachments/assets/e72577f6-02ef-45c7-b42f-a387fb431a4c" />
 
-L'accès est refusé
+En l'espèce, l'erreur étant de type "BootMGR is missing", je tente les commandes:
+- ````bootrec \fixmbr````
+- ````bootrec \fixboot```` : accès refusé. Je force alors par la commande ````bootsect /nt60 sys````
+- ````bootrec \rebuildbcd````
 
-Raisons envisagées :
-- Erreur BCD ou MBR corrompu. Si le système ne démarre pas en raison d'une erreur BCD(Boot Configuration Data) ou du MBR endommagé, l'accès à bootrec /fixboot est alors refusé
-  - je tente une reconstruction de BCD et MBR : échec :
-  - <img width="1517" height="956" alt="image" src="https://github.com/user-attachments/assets/780a3cc4-e9d4-431d-94e1-28cf7702f9ce" />
+J'effectue l'opération autant sur la partition X: que sur la partition E: (là où se situe Windows)
 
-- Problème de partition de disque dur: la partition système peut être endommagée, elle peut refuser l'accès de la commande fixboot.
-  - Il faut réparer la partition système à l'aide de la commande Diskpart dans les options avancées de Windows RE.
-
-<img width="1462" height="746" alt="image" src="https://github.com/user-attachments/assets/5479673a-36d8-4cfb-8b10-49a69f59678a" />
+<img width="999" height="530" alt="image" src="https://github.com/user-attachments/assets/d09dc79c-a5e1-4982-9585-a3b153164190" />
 
 
-    Bootrec /rebuildbcd
-    Bootrec /fixmbr
-    Bootrec /fixboot
+Au redémarrage, il y a du mieux, j'accède à un écran bleu : le winload.exe est corrompu.
 
-bcdboot E:\windows /s F: /f UEFI
 
-<img width="1495" height="160" alt="image" src="https://github.com/user-attachments/assets/fd20561c-7dfa-457f-ba1c-6950d9fd3854" />
-
-### Poursuite du démarrage : Fichier winload.exe manquant
 <img width="1920" height="1032" alt="VirtualBoxVM_8BeA3YDe7n" src="https://github.com/user-attachments/assets/411a66b5-31c9-4311-93e0-baa9731c00ac" />
 
-<img width="1920" height="1032" alt="VirtualBoxVM_DxkkuigTZo" src="https://github.com/user-attachments/assets/ab7d618a-c74f-421a-9be2-56b3d4a427bb" />
+
+L'outil de remarrage systeme auto permet de restaurer Winload.exe et d'accéder à Windows.
 
 
+
+### Système ralenti:
+
+En gestionaire des tâches, de nombreux processus tournent en arrière plan
+<img width="1920" height="1032" alt="VirtualBoxVM_2N1flUz6Q0" src="https://github.com/user-attachments/assets/c33f828c-93b0-4236-99a0-0d6ae3e4a7fc" />
+
+Je constate qu'au démarrage un script "Ping" se lance.
+
+Via exécuter je lance shell:startup
+
+Un raccourci appraît et pointe sur le fichier "ping.ps1"; Je le supprime.
+<img width="1920" height="1032" alt="VirtualBoxVM_T3bE54JfxV" src="https://github.com/user-attachments/assets/8089dfef-9a35-430e-a9cc-6d0e5f6ce885" />
+
+<img width="1920" height="1032" alt="VirtualBoxVM_inHF22raVl" src="https://github.com/user-attachments/assets/33968db7-0516-4b70-b005-4d1db0fc58e2" />
+
+L'utilisation du processeur et de la RAM est à présent normal :
+<img width="1920" height="1032" alt="VirtualBoxVM_wvyHWprdmx" src="https://github.com/user-attachments/assets/75a03a14-593b-4cf4-8fc1-a6a2484cce92" />
+
+
+ ### Recuperation des images :
+
+Réactiver le disque E qui apparaît hors ligne en gesiton des disques.
+
+<img width="1920" height="1032" alt="VirtualBoxVM_xqzqrwQxVd" src="https://github.com/user-attachments/assets/9e15c1fa-43ab-40b2-9d6e-2f58ba762120" />
+
+<img width="1920" height="1032" alt="VirtualBoxVM_5aXTzkzIks" src="https://github.com/user-attachments/assets/b2215948-35c7-4680-8806-08648a5bdc85" />
+
+le disque E est à présent actif :
+<img width="1920" height="1032" alt="VirtualBoxVM_jSOPGcwmFi" src="https://github.com/user-attachments/assets/7d7c2bee-a46e-41be-9a51-6ea8b9a950cf" />
+
+Le dossier image est historisé
+
+<img width="1920" height="1032" alt="VirtualBoxVM_jQ0s7rQ6Op" src="https://github.com/user-attachments/assets/f880bb01-fe23-4413-8902-5a42f27bc702" />
+
+Une fois la restauration effectué, le dossier York apparaît.
+
+<img width="1920" height="1032" alt="VirtualBoxVM_xoXVRgbrGI" src="https://github.com/user-attachments/assets/14d1c6fe-3dfc-4a6a-97e6-e090d8f8ca90" />
