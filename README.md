@@ -45,4 +45,40 @@ Je clique sur Réparer l'ordinateur et j'accède aux options de dépannage
 Résultat : échec
 <img width="1535" height="956" alt="image" src="https://github.com/user-attachments/assets/d10b8549-20ab-4235-890d-04dc8f13fe6d" />
 
-2. 
+2. Commande Bootrec
+Les comandes BootRec possibles sont les suivantes :
+<img width="1491" height="1311" alt="image" src="https://github.com/user-attachments/assets/e72577f6-02ef-45c7-b42f-a387fb431a4c" />
+
+En l'espèce, l'erreur étant de type "BootMGR is missing", je tente la commande ````bootrec \fixboot````
+
+<img width="1486" height="937" alt="image" src="https://github.com/user-attachments/assets/63e38742-634b-4846-b66d-bea4e6f09b52" />
+
+<img width="1480" height="781" alt="image" src="https://github.com/user-attachments/assets/032f099b-ae34-4a8a-8a27-c338591c6b95" />
+
+L'accès est refusé
+
+Raisons envisagées :
+- Erreur BCD ou MBR corrompu. Si le système ne démarre pas en raison d'une erreur BCD(Boot Configuration Data) ou du MBR endommagé, l'accès à bootrec /fixboot est alors refusé
+  - je tente une reconstruction de BCD et MBR : échec :
+  - <img width="1517" height="956" alt="image" src="https://github.com/user-attachments/assets/780a3cc4-e9d4-431d-94e1-28cf7702f9ce" />
+
+- Problème de partition de disque dur: la partition système peut être endommagée, elle peut refuser l'accès de la commande fixboot.
+  - Il faut réparer la partition système à l'aide de la commande Diskpart dans les options avancées de Windows RE.
+
+<img width="1462" height="746" alt="image" src="https://github.com/user-attachments/assets/5479673a-36d8-4cfb-8b10-49a69f59678a" />
+
+
+    Bootrec /rebuildbcd
+    Bootrec /fixmbr
+    Bootrec /fixboot
+
+bcdboot E:\windows /s F: /f UEFI
+
+<img width="1495" height="160" alt="image" src="https://github.com/user-attachments/assets/fd20561c-7dfa-457f-ba1c-6950d9fd3854" />
+
+### Poursuite du démarrage : Fichier winload.exe manquant
+<img width="1920" height="1032" alt="VirtualBoxVM_8BeA3YDe7n" src="https://github.com/user-attachments/assets/411a66b5-31c9-4311-93e0-baa9731c00ac" />
+
+<img width="1920" height="1032" alt="VirtualBoxVM_DxkkuigTZo" src="https://github.com/user-attachments/assets/ab7d618a-c74f-421a-9be2-56b3d4a427bb" />
+
+
