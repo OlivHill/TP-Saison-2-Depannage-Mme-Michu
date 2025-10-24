@@ -245,7 +245,34 @@ On redémarre.
 On accède à Windows.
 <img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/80e2cb1b-9ab5-41ac-85d4-9a47979949c4" />
 
+Le démarrage est lent. Au démarrage. On voit les processus sur le gestionnaire de taches :
+
+<img width="1920" height="1032" alt="VirtualBoxVM_kunuX10w4u" src="https://github.com/user-attachments/assets/79218078-fb3e-4595-ba4b-2d0e60f24546" />
+
+en CDM, la commande ````taskkill /IM ping.exe /F```` permet de forcerl'extinction du processus ping.exe
+
+<img width="1920" height="1032" alt="VirtualBoxVM_KmaFJQfxsO" src="https://github.com/user-attachments/assets/86e23c4c-b352-4b5c-8ab3-d86bc5c1df6e" />
 
 
+On va aller voir les éléments de démarrage :
+- le planificateur ed tâches :
+Aller voir le planificateur de tâches qui permet de lancer des scripts au démarrage.
+<img width="1572" height="1126" alt="mmc_9BpKbodcRM" src="https://github.com/user-attachments/assets/22864e6f-e30d-4547-ae5d-4a046da82011" />
+La panne n'est pas ici
 
+- les services :
+  On y accède via le planificateur de tâches. Onglets Services (lancé avec svc.host qui lance les services).
+  
+- les éléments de démarrage:
+  Dans Gestionnaire des tâches, on peut désactiver PowerShell dans l'onglet Démarrage
 
+<img width="1920" height="1032" alt="VirtualBoxVM_vjNJqhtwu8" src="https://github.com/user-attachments/assets/6aac95c3-69a3-4ed9-855f-3282386f6a6e" />
+
+Ensuite on peut aller dans le Roaming : on y retrouve le raccourci qui se lance au démarrage :
+<img width="1920" height="1032" alt="VirtualBoxVM_wQLLgOsj7D" src="https://github.com/user-attachments/assets/e1544733-2ebc-4d55-8670-2b157cbfad89" />
+
+Dans le détail du raccourci, on retrouve l'emplacement du Script :
+<img width="1920" height="1032" alt="VirtualBoxVM_BWRSMLyx3D" src="https://github.com/user-attachments/assets/4d1393bc-b3aa-48f6-83e1-c99a53ac8747" />
+
+Voilà le script
+<img width="1920" height="1032" alt="VirtualBoxVM_RdL0csDaAr" src="https://github.com/user-attachments/assets/1d2246f8-5a3a-4f87-b42e-7319482b0bd0" />
