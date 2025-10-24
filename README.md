@@ -150,3 +150,45 @@ Le lecteur C: est indiqué "Réservé au système". C'est donc le Windows.
 
 <img width="1920" height="1032" alt="VirtualBoxVM_H91T6m2CZD" src="https://github.com/user-attachments/assets/d623de61-a0bc-4548-b972-d2cce3e8e9b0" />
 
+Retou au terminal, on sait que le problème est sur le lecteur C.
+Aller sur C:
+Faire dire pour voir les fichier ou dir /a pour voir les fichiers systèmes cachés. On voit que le bootmgr est absent.
+*<img width="1920" height="1032" alt="VirtualBoxVM_o23OAfnS8G" src="https://github.com/user-attachments/assets/d6ea2c11-6a1e-4867-a6b3-d14728e9c7e4" />
+
+Faire bootrec
+
+<img width="1920" height="1032" alt="VirtualBoxVM_Tp6QmIx6ff" src="https://github.com/user-attachments/assets/ef91c7f0-9751-4a1e-9808-397174790853" />
+
+FixMbr écrit le secteur de démarrage. En l'espèce, le démarrage est là, c'est le contenu qui est corrompu.
+- on peut le lancer, l'opération réussie, mais ça ne va pas changer le problème.
+
+Fixboot écrit un nouveau secteur de démarrage.
+- en l'espèce nous avons un accès refusé : pourquoi ? car nous avons une partition UEFI (sinon ça aurait refusé).
+
+<img width="1920" height="1032" alt="VirtualBoxVM_xQpPsV3sbF" src="https://github.com/user-attachments/assets/76356cb2-18ec-4053-8a7b-9b49dca4f1c2" />
+
+Pour savoir si on est sur une partition EFI, il faut aller en Diskpart. Dans list vol, on est censé avec * devant le volume EFI.
+
+Solution : bootsect
+
+<img width="1920" height="1032" alt="VirtualBoxVM_XZQGnAq84s" src="https://github.com/user-attachments/assets/a312f078-fa81-404e-af74-142d235dc954" />
+
+Bootsect.exe est un utilitaire Windows qui permet de réparer ou modifier le secteur de démarrage d’un disque. Il est souvent utilisé pour rendre une clé USB bootable ou restaurer un système incapable de démarrer.
+Il met à jour le code de démarrage de démarrage principal pour les partitions du disque dur afin de basculer entre BOOTMGR et NTLDR. Il peut être utilisé pour restaurer le secteur d'amorcage sur l'ordinateur.
+
+A quoi sert il ?
+- - Réparer le secteur de démarrage (boot sector) : utile en cas de corruption ou de changement de système de démarrage.
+- Rendre une clé USB bootable : indispensable pour installer Windows depuis une clé USB.
+- Changer le type de chargeur de démarrage:
+  - /nt52 : pour les systèmes utilisant NTLDR (Windows XP).
+  - /nt60 : pour les systèmes utilisant Bootmgr (Windows Vista, 7, 8, 10, 11).
+
+On tente donc ````bootsect /net60 sys````
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/a81ae0bf-75c7-411b-8083-39df681ee735" />
+
+Ensuite ````bootrec /fixboot```` : accès toujours refusé. La solution ne passait donc pas par là
+
+<img width="1920" height="1032" alt="VirtualBoxVM_ruuQw7eoNy" src="https://github.com/user-attachments/assets/1413a38e-598b-4635-a453-ba1fe39231f3" />
+
+
+
