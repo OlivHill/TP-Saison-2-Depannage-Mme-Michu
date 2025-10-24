@@ -108,3 +108,45 @@ Le dossier image est historisé
 Une fois la restauration effectué, le dossier York apparaît.
 
 <img width="1920" height="1032" alt="VirtualBoxVM_xoXVRgbrGI" src="https://github.com/user-attachments/assets/14d1c6fe-3dfc-4a6a-97e6-e090d8f8ca90" />
+
+# CORRECTION
+La VM est un Win10, sur une structure BIOS.
+Le message est un message de BIOS.
+
+<img width="1087" height="589" alt="image" src="https://github.com/user-attachments/assets/9c9b847c-eb49-46e5-8e3a-087cc5067729" />
+
+C'est un problème lié à la distribution. Le BIOS initialise les périphériques, des drivers et va chercher dans un endroit s'il y a un operating système (OS)...et il ne trouve rien. Donc soit il n'y a rien, soit il cherche au mauvais endroit.
+
+Pour le démarrage, il y a trois étapes:
+- le bootmgr :
+  - Il charge le système d’exploitation (comme Windows 10 ou 11) au démarrage de l’ordinateur.
+  - Il lit les fichiers de démarrage (comme BCD, le Boot Configuration Data) pour savoir où se trouve Windows et comment le lancer.
+  - Généralement, il se trouve sur la partition système réservée ou sur la partition EFI si ton PC utilise le mode UEFI.
+  - En cas d'erreur BOOTMGR absent ou corrompu, Windows ne démarre pas. On peut réparer avec un support d’installation (clé USB ou DVD) en utilisant des commandes comme ````bootrec /fixboot````, ````bootrec /rebuildbcd````, ou ````bcdboot````
+
+- le winload
+  - 
+- le bcd
+
+Ici, on considère que c'est un problème de Boot is Missing. 
+
+On intègre un ISO Win10 ou Win11 pour accéder aux lignes de commande.
+
+Aller en ligne de commande et taper ````notepad````. une fois notepad ouvert, faire Fichier Ouvrir et ça nous donne accès à une interface !!! (on peut faire aussi ````regedit````, etc)
+
+<img width="1920" height="1032" alt="VirtualBoxVM_ywJcZnsQOp" src="https://github.com/user-attachments/assets/4b86f60d-4d96-42bd-ba80-f31805fbddf8" />
+
+Le lecteur Boot (X:) c'est quoi ? Actuellement on est sur le CD-ROM, le système qui tourne est sur le WinRE de ce CDROM.
+
+On peut aller voir les lecteurs :
+
+<img width="1920" height="1032" alt="VirtualBoxVM_dm00F8CCP7" src="https://github.com/user-attachments/assets/30327dcd-a59c-4c2f-bded-74321f0e8a52" />
+
+Dans le lecteur E:, on trouve l'utilisateur Mme Michu, c'est donc l'ordinateur de Mme MICHU. C'est donc sur ce lecteur que se situe les données de Mme.
+
+<img width="1920" height="1032" alt="VirtualBoxVM_VF3748iWBW" src="https://github.com/user-attachments/assets/9268246a-41c9-4d4b-b5b6-dd27d3be703d" />
+
+Le lecteur C: est indiqué "Réservé au système". C'est donc le Windows.
+
+<img width="1920" height="1032" alt="VirtualBoxVM_H91T6m2CZD" src="https://github.com/user-attachments/assets/d623de61-a0bc-4548-b972-d2cce3e8e9b0" />
+
