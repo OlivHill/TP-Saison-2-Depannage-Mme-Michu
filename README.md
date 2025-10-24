@@ -223,17 +223,29 @@ Il existe aussi la commande SFC : il analyse l'intégrité des fichiers système
 
 Taper ````sfc````
 
-<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/67c771de-eb8b-472b-8f63-dd872d81bdec" />
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/fbff2eb2-89cb-4bdf-9f8d-54446d193a53" />
 
 Il faut spécifier à SFC le dique sur lequel se situe ta partition Windows (E: en l'espèce) via l'option /OFFBOOTDIR (le boot) ou /OFFWINDIR (emplacement windows)
 
-Indiquer scf /scannow offbootdir=e:\ /offwindir=e:\Windows (ici autant le dossier de boot de Windows et le dossier Windows sont ici sur E: ; le boot C: est pour le MGR)
+Indiquer ````sfc /scannow offbootdir=e:\ /offwindir=e:\Windows```` (ici autant le dossier de boot de Windows et le dossier Windows sont ici sur E: ; le boot C: est pour le MGR)
 
 Ressource utile : https://www.malekal.com/processus-demarrage-windows-mbr/
 
 <img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/669ecd05-8bc3-43c4-bcb5-ecb3274e1d48" />
 
 Il va scanner les fichiers système de Windows par vérification de signature. Il devrait constater que la signature de Winload.exe a été modifié et va le remplacer.
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/8f1dcc3e-761c-47eb-8e12-c6e60657d6fe" />
+
+SFC a réparé le dossier.
+On retrouve d'ailleurs le Winload via NotePad
+<img width="1920" height="1032" alt="VirtualBoxVM_yLGvJfsRrV" src="https://github.com/user-attachments/assets/ff55be8f-a3db-4761-a8af-9c4dff11f7d4" />
+
+On redémarre.
+On accède à Windows.
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/80e2cb1b-9ab5-41ac-85d4-9a47979949c4" />
+
+
 
 
 
