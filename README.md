@@ -186,9 +186,54 @@ A quoi sert il ?
 On tente donc ````bootsect /net60 sys````
 <img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/a81ae0bf-75c7-411b-8083-39df681ee735" />
 
-Ensuite ````bootrec /fixboot```` : accès toujours refusé. La solution ne passait donc pas par là
+Ensuite ````bootrec /fixboot```` : accès toujours refusé. La solution ne passait donc pas par là.
+
 
 <img width="1920" height="1032" alt="VirtualBoxVM_ruuQw7eoNy" src="https://github.com/user-attachments/assets/1413a38e-598b-4635-a453-ba1fe39231f3" />
+
+Faire bcdboot: commande qui peut être utilisée pour copier les fichiers critiques de démarrage dans la partition système et créer un nouveau magasin BCD Système.
+
+source pour les commandes : https://learn.microsoft.com/fr-fr/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di?view=windows-11
+
+<img width="1920" height="1032" alt="VirtualBoxVM_59D97OI8pF" src="https://github.com/user-attachments/assets/1b8a8db1-8587-4c34-97cc-5b10955c8b59" />
+
+bcdboot /l permet de spécifier la langue utilisée du bootMGR (par défaut anglais). avec /l fr-FR pour mettre en français.
+bcdboot /s permet de spécifier un paramètre de lettre du volume.
+
+A présent, on créé sur E: (l'ordi de Mme) le bootMGR en francais :
+<img width="1920" height="1032" alt="VirtualBoxVM_cVGC1oxrK9" src="https://github.com/user-attachments/assets/4e0def62-9c45-4459-b993-7515435761c8" />
+Donc ici : on a téléchargé le bcdboot disponible en E:Windows et copier sur C:
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/cd2c4235-ef21-42ae-b059-0147763608ea" />
+
+
+On reboot
+
+<img width="1920" height="1032" alt="VirtualBoxVM_Ss7xflPoof" src="https://github.com/user-attachments/assets/18e2c8c6-4267-4160-8cd9-24a64993872e" />
+
+On retourne sur le cd
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/a687c7b4-bc6e-403a-b13b-9f7c3928b6d2" />
+
+En notepad, je vais en E: puis Windows ; System32. Je vois que Winload.exe est absent (il n'y a que winload.exe)
+
+La technique DISM VIM pour corriger peut marcher.
+
+Il existe aussi la commande SFC : il analyse l'intégrité des fichiers système protégés et remplace les versions incorrectes par des versions Microsoft.
+
+Taper ````sfc````
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/67c771de-eb8b-472b-8f63-dd872d81bdec" />
+
+Il faut spécifier à SFC le dique sur lequel se situe ta partition Windows (E: en l'espèce) via l'option /OFFBOOTDIR (le boot) ou /OFFWINDIR (emplacement windows)
+
+Indiquer scf /scannow offbootdir=e:\ /offwindir=e:\Windows (ici autant le dossier de boot de Windows et le dossier Windows sont ici sur E: ; le boot C: est pour le MGR)
+
+Ressource utile : https://www.malekal.com/processus-demarrage-windows-mbr/
+
+<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/669ecd05-8bc3-43c4-bcb5-ecb3274e1d48" />
+
+Il va scanner les fichiers système de Windows par vérification de signature. Il devrait constater que la signature de Winload.exe a été modifié et va le remplacer.
 
 
 
